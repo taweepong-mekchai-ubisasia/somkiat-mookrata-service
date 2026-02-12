@@ -8,12 +8,19 @@ import { orders } from "./schema/order";
 import { orderItems } from "./schema/order-item";
 
 const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "ubis@Pass01",
-  database: "somkiat-mookrata",
+  // host: "localhost",
+  // user: "root",
+  // password: "ubis@Pass01",
+  // database: "somkiat-mookrata",
+    host: "trolley.proxy.rlwy.net",
+    port: 58557,
+    user: "root",
+    password: "TUwXfqoYHihbJhxcmYPxwvHBrtHXmHSw",
+    database: "railway",
   connectionLimit: 10
 });
+
+
 
 export const db = drizzle(pool, { 
   schema: { staff, permissions, rolePermissions, tables, products, orders, orderItems },

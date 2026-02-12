@@ -15,6 +15,13 @@
       "when": 1770714890896,
       "tag": "0001_update_products_with_image",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1770869203907,
+      "tag": "0002_chief_black_tarantula",
+      "breakpoints": true
     }
   ]
 }
