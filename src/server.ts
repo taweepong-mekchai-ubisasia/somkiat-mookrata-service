@@ -43,7 +43,7 @@ new Elysia()
   )
   .use(jwtPlugin)
   .use(authGuard)
-
+.get("/", () => "OK")
   .group("/auth", (app) => app.use(authModule))
   .group("/staff", (app) => app.use(staffModule))
   .group("/tables", (app) => app.use(tableModule))
