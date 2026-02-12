@@ -1,24 +1,44 @@
-# Railway Post-Deploy Script
+# Railway Auto-Deploy with Database Setup
 
-Railway จะรัน script นี้หลังจาก build สำเร็จ
+Railway จะรัน migrations และ seed อัตโนมัติทุกครั้งที่ deploy
 
-## วิธีตั้งค่า
+## วิธีทำงาน
 
-1. **Railway Dashboard** → Select Project → Settings
-2. ไปที่ **Build** tab
-3. ในส่วน **Post-Deploy Command** ใส่:
-   ```
-   bun run post-deploy
-   ```
+Dockerfile ได้ถูกแก้ไขให้:
+1. Build ขั้น 1: Install dependencies
+2. Build ขั้น 2: Copy all files
+3. **ที่ Runtime:**
+   - ✅ รัน `bun run migrate` - ปรับปรุง database schema
+   - ✅ รัน `bun run seed` - เพิ่มข้อมูล staff (admin, staff, waiter)
+   - ✅ รัน `bun run seed:products` - เพิ่มข้อมูลสินค้า
+   - ✅ รัน `bun run dev` - เปิด API server
 
-## Script ทำอะไร
+## ตั้งค่า Railway
 
-- `bun run migrate` - ประมาณการ database schema
-- `bun run seed` - เพิ่มข้อมูล staff (admin, staff, waiter)
-- `bun run seed:products` - เพิ่มข้อมูลสินค้า
+ไม่ต้องตั้งค่าเพิ่มเติม! เพียงแค่:
+1. Push code ให้ GitHub
+2. Railway จะ auto-deploy
+3. Build จะสำเร็จและ seed ข้อมูลโดยอัตโนมัติ
 
-## หมายเหตุ
+## ข้อสังเกต
 
-- Seed script จะ skip ถ้าข้อมูลมีอยู่แล้ว (safe to re-run)
-- ต้องให้ DATABASE_URL ผ่าน Environment Variables
-- ตัวอักษร Railway ต้อง access database ได้
+- ⚠️ Seed script จะ skip ถ้าข้อมูลมีอยู่แล้ว (safe to re-deploy)
+- ⚠️ ต้องมี database connection string ผ่าน Environment Variables
+- ⚠️ ครั้งแรก deploy อาจใช้เวลาสักครู่จากการ seed ข้อมูล
+
+## ตัวอย่าง Output
+
+```
+Running migrations...
+Seeding database...
+🌱 Seeding staff data...
+✅ Staff user "admin" seeded
+✅ Staff user "staff" seeded
+✅ Staff user "waiter1" seeded
+Seeding products...
+🌱 Seeding products...
+✅ Product "Pad Thai" seeded
+Starting server...
+🚀 Server running on http://localhost:3536
+```
+

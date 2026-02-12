@@ -26,9 +26,13 @@ COPY --from=builder /app /app
 # Expose port
 EXPOSE 3536
 
+# Create startup script that runs migrations and seeds
+RUN echo '#!/bin/bash\nset -e\necho "Running migrations..."\nbun run migrate || true\necho "Seeding database..."\nbun run seed || true\necho "Seeding products..."\nbun run seed:products || true\necho "Starting server..."\nexec bun run dev' > /app/start.sh && chmod +x /app/start.sh
+
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
   CMD bun run -e "fetch('http://localhost:3536/').then(r => r.ok ? process.exit(0) : process.exit(1))" || exit 1
 
-# Start server
-CMD ["bun", "run", "dev"]
+# Start server with migrations and seeds
+CMD ["/app/start.sh"]
+
