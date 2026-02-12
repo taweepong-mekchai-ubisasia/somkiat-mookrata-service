@@ -10,6 +10,7 @@ import { tableModule } from "./modules/table/table.module";
 import { productModule } from "./modules/product/product.module";
 import { orderModule } from "./modules/order/order.module";
 
+const port = Number(process.env.PORT) || 3536;
 new Elysia()
   .use(
     cors({
@@ -48,8 +49,11 @@ new Elysia()
   .group("/products", (app) => app.use(productModule))
   .group("/orders", (app) => app.use(orderModule))
 
-  .listen(3536);
+  .listen(port);
 
-console.log("🚀 Server running on http://localhost:3536");
+// new Elysia().listen(port);
+
+console.log(`🚀 Server running on ${port}`);
+// console.log("🚀 Server running on http://localhost:3536");
 console.log("📚 Swagger docs available at http://localhost:3536/docs");
 console.log("✅ CORS enabled for http://localhost:5173");
