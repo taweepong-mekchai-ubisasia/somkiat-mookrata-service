@@ -56,5 +56,5 @@ new Elysia()
 
 console.log(`🚀 Server running on ${port}`);
 // console.log("🚀 Server running on http://localhost:3536");
-console.log("📚 Swagger docs available at http://localhost:3536/docs");
+console.log(`📚 Swagger docs available at http://localhost:${port}/docs`);
 console.log("✅ CORS enabled for http://localhost:5173");
