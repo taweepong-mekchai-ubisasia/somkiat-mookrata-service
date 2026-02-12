@@ -3,13 +3,14 @@
   "type": "module",
   "scripts": {
     "dev": "bun --watch ./src/server.ts",
-   "build": "bun build ./src/server.ts --outdir dist",
-  "start": "bun ./dist/server.js",
+    "build": "bun build ./src/server.ts --outdir dist",
+    "start": "bun ./dist/server.js",
     "migrate": "drizzle-kit push",
     "seed": "bun run ./src/db/seed.ts",
     "seed:products": "bun run ./src/db/seed-products.ts",
     "setup": "bun run setup-db.ts",
-    "verify": "bun run verify-schema.ts"
+    "verify": "bun run verify-schema.ts",
+    "post-deploy": "bun post-deploy.sh || bun post-deploy.bat"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.1.0",
