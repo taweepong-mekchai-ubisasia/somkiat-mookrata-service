@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1770714582399,
+      "tag": "0000_update_product_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1770714890896,
+      "tag": "0001_update_products_with_image",
+      "breakpoints": true
+    }
+  ]
+}
